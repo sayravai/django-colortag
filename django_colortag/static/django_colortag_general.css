@@ -3,44 +3,6 @@
 	padding: 0.3em 0.6em 0.2em;
 }
 
-/* segmented buttons; partially copied from Bootstrap 5 */
-.btn-check {
-	position: absolute;
-	clip: rect(0,0,0,0);
-	pointer-events: none;
-}
-.btn-outline-secondary {
-	--bs-btn-color: #6c757d;
-	--bs-btn-border-color: #6c757d;
-	--bs-btn-hover-color: #fff;
-	--bs-btn-hover-bg: #6c757d;
-	--bs-btn-hover-border-color: #6c757d;
-	--bs-btn-focus-shadow-rgb: 108,117,125;
-	--bs-btn-active-color: #fff;
-	--bs-btn-active-bg: #6c757d;
-	--bs-btn-active-border-color: #6c757d;
-	--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-	--bs-btn-disabled-color: #6c757d;
-	--bs-btn-disabled-bg: transparent;
-	--bs-btn-disabled-border-color: #6c757d;
-	--bs-gradient: none;
-}
-.btn-outline-secondary {
-	color: var(--bs-btn-color);
-	border-color: var(--bs-btn-border-color);
-}
-.btn-outline-secondary:hover {
-	color: var(--bs-btn-hover-color);
-	background-color: var(--bs-btn-hover-bg);
-	border-color: var(--bs-btn-hover-border-color);
-}
-.btn-check:checked + .btn, :not(.btn-check) + .btn:active {
-	color: var(--bs-btn-active-color);
-	background-color: var(--bs-btn-active-bg);
-	border-color: var(--bs-btn-active-border-color);
-}
-
-/* Migrated from Glyphicons to Bootstrap Icons (check mark) */
 .btn-check:checked + .btn:before {
 	position: relative;
 	top: 1px;
@@ -66,7 +28,6 @@
 	color: #6c757d;
 	margin-left: 0.2em;
 }
-/* Updated icon selector from .glyphicon to .bi */
 .help-btn > .bi {
 	position: relative;
 	top: 2px;

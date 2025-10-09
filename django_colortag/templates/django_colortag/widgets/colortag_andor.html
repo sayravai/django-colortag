@@ -42,7 +42,7 @@
 {% if ht %}
 <a
 	tabindex="0"
-	class="btn btn-sm btn-outline-secondary help-btn"
+	class="btn btn-sm help-btn"
 	role="button"
 	data-bs-toggle="popover"
 	data-bs-trigger="focus hover"
@@ -52,7 +52,7 @@
 	data-bs-content="{{ ht.content }}"
 	aria-label="{% trans 'Show instructions' %}"
 >
-	<i class="bi bi-question-circle" aria-hidden="true"></i>
+	<i class="bi bi-question-circle-fill" aria-hidden="true"></i>
 	<span class="visually-hidden">{% trans 'Show instructions' %}</span>
 </a>
 {% endif %}
