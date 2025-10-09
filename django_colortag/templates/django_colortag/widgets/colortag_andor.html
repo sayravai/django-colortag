@@ -38,15 +38,22 @@
 	</label>
 </div>
 {% endwith %}
-{% with ht=widget.attrs.helptext%}
+{% with ht=widget.attrs.helptext %}
 {% if ht %}
-<a tabindex="0" class="btn btn-xs help-btn" role="button"
-	data-toggle="popover" data-trigger="focus hover" data-placement="auto" data-html="true"
-	title="{{ ht.title }}" data-content="{{ ht.content }}"
+<a
+	tabindex="0"
+	class="btn btn-sm btn-outline-secondary help-btn"
+	role="button"
+	data-bs-toggle="popover"
+	data-bs-trigger="focus hover"
+	data-bs-placement="auto"
+	data-bs-html="true"
+	title="{{ ht.title }}"
+	data-bs-content="{{ ht.content }}"
+	aria-label="{% trans 'Show instructions' %}"
 >
-	<span class="{{ ht.icon|default:'glyphicon glyphicon-question-sign' }}"
-		aria-label="{% trans 'Show instructions' %}"
-	></span>
+	<i class="bi bi-question-circle" aria-hidden="true"></i>
+	<span class="visually-hidden">{% trans 'Show instructions' %}</span>
 </a>
 {% endif %}
 {% endwith %}

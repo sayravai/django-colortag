@@ -34,62 +34,31 @@
 	background-color: var(--bs-btn-hover-bg);
 	border-color: var(--bs-btn-hover-border-color);
 }
-.segmented-select > .btn {
-	position: relative;
-	flex: 1 1 auto;
-	border-radius: 10px;
-	margin-right: 0;
-}
-.segmented-select.sm > .btn {
-	padding: .25rem .5rem;
-	font-size: .875em;
-	border-radius: 7px;
-}
 .btn-check:checked + .btn, :not(.btn-check) + .btn:active {
 	color: var(--bs-btn-active-color);
 	background-color: var(--bs-btn-active-bg);
 	border-color: var(--bs-btn-active-border-color);
 }
-.segmented-select > .btn-check:checked + .btn, .segmented-select > .btn-check:focus + .btn, .segmented-select > .btn:focus, .segmented-select > .btn:hover {
-	z-index: 1;
-}
-.segmented-select > .btn:has(~ .btn) {
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
-.segmented-select > .btn:nth-child(n+3), .segmented-select > :not(.btn-check) + .btn {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
-.segmented-select > :not(.btn-check:first-child) + .btn {
-	margin-left: -1px;
-}
-.segmented-select.sm > .btn {
-	line-height: 1.2;
-}
 
+/* Migrated from Glyphicons to Bootstrap Icons (check mark) */
 .btn-check:checked + .btn:before {
 	position: relative;
 	top: 1px;
 	display: inline-block;
-	font-family: 'Glyphicons Halflings';
+	font-family: 'bootstrap-icons';
 	font-style: normal;
 	font-weight: 400;
-	line-height: 0.7;
-	margin-right: 0.2em;
+	line-height: 1;
+	margin-right: 0.25em;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	content: "\e013";
+	content: "\f26e"; /* bi-check-lg */
 }
 
 /* and-or specific */
-.segmented-select.and-or {
+.button-group.and-or {
 	margin: 0;
 	margin-bottom: 0.4em;
-	display: inline-flex;
-}
-.segmented-select.and-or > .btn {
-	width: 5em;
 }
 
 /* help button */
@@ -97,7 +66,9 @@
 	color: #6c757d;
 	margin-left: 0.2em;
 }
-.help-btn > .glyphicon {
+/* Updated icon selector from .glyphicon to .bi */
+.help-btn > .bi {
+	position: relative;
 	top: 2px;
 }
 .help-btn:hover {

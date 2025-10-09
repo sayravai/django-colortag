@@ -241,7 +241,7 @@ class AndOrWidget(widgets.CheckboxInput):
                  attrs: Optional[dict[str, object]] = None,
                  check_test: Optional[Callable[[object], bool]] = None,
                  ) -> None:
-        add_classes = "segmented-select sm and-or"
+        add_classes = "btn-group btn-group-sm and-or"
         if not attrs:
             attrs = {
                 "class": add_classes,

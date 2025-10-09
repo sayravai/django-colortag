@@ -67,29 +67,34 @@
 	color: #fff;
 }
 
+/* Icon indicators (Bootstrap Icons) for include/exclude/inactive states */
 .colortag-inc-exc > .btn-check + .btn.colortag:before {
 	position: relative;
 	top: 2px;
 	display: inline-block;
-	font-family: 'Glyphicons Halflings';
+	font-family: 'bootstrap-icons';
 	font-style: normal;
 	font-weight: 400;
 	line-height: 0.7;
-	margin-right: 0.2em;
+	margin-right: 0.25em;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	content: ""; /* empty until a state is active */
 }
+/* Inactive (neutral) -> dash icon */
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.inactive:before {
-	content: "\e157";
+	content: "\f2ea"; /* bi-dash */
 }
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.inactive:not(:hover):before {
 	color: #6c757d;
 }
+/* Include -> check */
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.include:before {
-	content: "\e067";
+	content: "\f26e"; /* bi-check */
 }
+/* Exclude -> x */
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.exclude:before {
-	content: "\e014";
+	content: "\f62a"; /* bi-x */
 }
 
 /* Slightly transparent color preview on hover */
@@ -103,11 +108,11 @@
 	top: 0px;
 	left: 4px;
 	display: inline-block;
-	font-family: 'Glyphicons Halflings';
+	font-family: 'bootstrap-icons';
 	font-style: normal;
 	font-weight: 400;
-	font-size: 0.7em;
+	font-size: 0.75em;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	content: "\e146";
+	content: "\f4ec"; /* bi-pin-fill */
 }
