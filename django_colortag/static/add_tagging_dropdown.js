@@ -117,7 +117,7 @@ const get_create_tagging_dropdown_closure = (function ($) {
           .attr({
             'type': 'button',
             'id': button_id,
-            'data-toggle': 'dropdown',
+            'data-bs-toggle': 'dropdown',
             'aria-haspopup': 'true',
             'aria-expanded': 'true',
           })

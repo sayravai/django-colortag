@@ -18,9 +18,9 @@ def get_colortag_attrs(colortag, options):
     }
     if not options.get('no_tooltip') and colortag.description:
         attrs.update({
-            'data-toggle': 'tooltip',
-            'data-trigger': options.get('tooltip_trigger', 'hover'),
-            'data-placement': options.get('tooltip_placement', 'top'),
+            'data-bs-toggle': 'tooltip',
+            'data-bs-trigger': options.get('tooltip_trigger', 'hover'),
+            'data-bs-placement': options.get('tooltip_placement', 'top'),
             'title': colortag.description,
         })
     return attrs
@@ -251,11 +251,11 @@ class AndOrWidget(widgets.CheckboxInput):
         else:
             attrs["class"] += " " + add_classes
         attrs.setdefault('or', {
-            'data-toggle': 'tooltip',
+            'data-bs-toggle': 'tooltip',
             'title': _("Show a result if it has ANY of the selected tags."),
         })
         attrs.setdefault('and', {
-            'data-toggle': 'tooltip',
+            'data-bs-toggle': 'tooltip',
             'title': _("Show a result only if it has ALL of the selected tags."),
         })
         super().__init__(attrs, check_test)
@@ -306,12 +306,12 @@ class ColortagIEAndOrWidget(widgets.MultiWidget):
             'use_and': AndOrWidget({
                 'helptext': helptext,
                 'or': {
-                    'data-toggle': 'tooltip',
+                    'data-bs-toggle': 'tooltip',
                     'data-html': "true",
                     'title': or_tooltip,
                 },
                 'and': {
-                    'data-toggle': 'tooltip',
+                    'data-bs-toggle': 'tooltip',
                     'data-html': "true",
                     'title': and_tooltip,
                 },

@@ -15,9 +15,9 @@ function django_colortag_label(colortag, options_) {
   };
   if (!options['no_tooltip'] && colortag.description) {
     $.extend(attrs, {
-      'data-toggle': 'tooltip',
-      'data-trigger': options['tooltip_trigger'] || 'hover',
-      'data-placement': options['tooltip_placement'] || 'top',
+      'data-bs-toggle': 'tooltip',
+      'data-bs-trigger': options['tooltip_trigger'] || 'hover',
+      'data-bs-placement': options['tooltip_placement'] || 'top',
       'title': colortag.description,
     });
   }
@@ -87,5 +87,5 @@ window.addEventListener("load", (event) => {
    g.addEventListener('contextmenu', (e) => selectNextOption(e, 2));
   }
 
-  $('[data-toggle="popover"]').popover();
+  $('[data-bs-toggle="popover"]').popover();
 });
