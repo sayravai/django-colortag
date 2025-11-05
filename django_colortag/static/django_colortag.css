@@ -81,20 +81,20 @@
 	-moz-osx-font-smoothing: grayscale;
 	content: ""; /* empty until a state is active */
 }
-/* Inactive (neutral) -> dash icon */
+/* Inactive (neutral) -> square icon */
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.inactive:before {
-	content: "\f2ea"; /* bi-dash */
+	content: "\f584"; /* bi-square */
 }
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.inactive:not(:hover):before {
 	color: #6c757d;
 }
 /* Include -> check */
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.include:before {
-	content: "\f26e"; /* bi-check */
+	content: "\f271"; /* bi-check2-square */
 }
 /* Exclude -> x */
 .colortag-inc-exc > .btn-check:checked + .btn.colortag.exclude:before {
-	content: "\f62a"; /* bi-x */
+	content: "\f659"; /* bi-x-lg */
 }
 
 /* Slightly transparent color preview on hover */
