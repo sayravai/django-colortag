@@ -110,26 +110,29 @@ const get_create_tagging_dropdown_closure = (function ($) {
         });
 
         // Construct the dropdown
-        const $span = $('<span />').addClass('dropdown create-tagging');
+        // Use a div as the dropdown container (Bootstrap examples use div)
+        const $span = $('<div />').addClass('dropdown create-tagging');
         const $button = $('<button />')
-          .addClass('btn btn-default dropdown-toggle')
-        // quotes required around keys because of dashes in names
+          .addClass('btn btn-secondary dropdown-toggle')
           .attr({
             'type': 'button',
             'id': button_id,
+            // Support both Bootstrap 5 (data-bs-*) and older jQuery plugin (data-toggle)
             'data-bs-toggle': 'dropdown',
+            'data-toggle': 'dropdown',
             'aria-haspopup': 'true',
-            'aria-expanded': 'true',
+            'aria-expanded': 'false',
           })
-            .html(button_text + ' <span class="caret"></span>');
+          .text(button_text);
         const $ul = $('<ul />')
           .addClass('dropdown-menu')
-          .attr({ 'aria-labeledby': button_id });
+          .attr({ 'aria-labelledby': button_id });
         const $li_list = tags.map(function (tag) {
           const $li = $('<li />').attr({ 'id': slug_id_prefix + tag.slug });
           const $a = $('<a />')
             .attr({ href: '#' })
-            .append(django_colortag_badge(tag))
+            .addClass('dropdown-item')
+            .append(django_colortag_label(tag))
             .on('click', click_handler_for_slug(tag.slug));
           $li.append($a);
           return $li;
@@ -138,6 +141,32 @@ const get_create_tagging_dropdown_closure = (function ($) {
         $ul.append($li_list);
         $span.append($button);
         $span.append($ul);
+        // If Bootstrap 5 is available, initialize dropdown programmatically
+        if (window.bootstrap && window.bootstrap.Dropdown) {
+          try { new window.bootstrap.Dropdown($button[0]); } catch (e) { /* noop */ }
+        }
+        // Fallback: if no Bootstrap dropdown (neither BS5 nor BS3), toggle via simple class
+        if (!(window.bootstrap && window.bootstrap.Dropdown) && !(typeof $.fn.dropdown === 'function')) {
+          $button.on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const $toggle = $(this);
+            const $menu = $toggle.next('.dropdown-menu');
+            const willShow = !$menu.hasClass('show');
+            // close any other open menus
+            $('.dropdown .dropdown-menu.show').removeClass('show');
+            $('.dropdown .dropdown-toggle[aria-expanded="true"]').attr('aria-expanded', 'false');
+            if (willShow) {
+              $menu.addClass('show');
+              $toggle.attr('aria-expanded', 'true');
+            }
+          });
+          // Close on outside click
+          $(document).on('click.usertagdropdown', function () {
+            $('.dropdown .dropdown-menu.show').removeClass('show');
+            $('.dropdown .dropdown-toggle[aria-expanded="true"]').attr('aria-expanded', 'false');
+          });
+        }
         menu_created_callback($span);
       });
     }
