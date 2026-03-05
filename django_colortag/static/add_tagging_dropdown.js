@@ -76,6 +76,9 @@ const get_create_tagging_dropdown_closure = (function ($) {
      *        will be called with the dropdown once it has been created.
      * @param {Function(response:jqXHR)} click_callback - A callback that will
      *        be called with the AJAX response once the tag has been added.
+     * @param {String} [button_classes] - Extra CSS classes for the dropdown
+     *        toggle button. 'dropdown-toggle' is always added. When omitted,
+     *        'btn btn-sm' is used as the default.
      */
     return function (
       exclude_tag_ids,
@@ -83,7 +86,8 @@ const get_create_tagging_dropdown_closure = (function ($) {
       button_text,
       button_id,
       menu_created_callback,
-      click_callback
+      click_callback,
+      button_classes
     ) {
       menu_created_callback = f_or_empty(menu_created_callback);
       click_callback = f_or_empty(click_callback);
@@ -101,6 +105,7 @@ const get_create_tagging_dropdown_closure = (function ($) {
       }
 
       // Get the list of all tags and filter out excluded ones
+      const result = {};
       tags_xhr().done(function (data) {
         const all_tags = data.results;
         const tags = all_tags.filter(function (tag) {
@@ -112,7 +117,7 @@ const get_create_tagging_dropdown_closure = (function ($) {
         // Construct the dropdown
         const $span = $('<span />').addClass('dropdown create-tagging');
         const $button = $('<button />')
-          .addClass('btn btn-default dropdown-toggle')
+          .addClass((typeof button_classes !== 'undefined' ? button_classes : 'btn btn-sm') + ' dropdown-toggle')
         // quotes required around keys because of dashes in names
           .attr({
             'type': 'button',
@@ -121,15 +126,16 @@ const get_create_tagging_dropdown_closure = (function ($) {
             'aria-haspopup': 'true',
             'aria-expanded': 'true',
           })
-            .html(button_text + ' <span class="caret"></span>');
+            .html('<i class="bi bi-tag" aria-hidden="true"></i> ' + button_text + ' <span class="caret"></span>');
         const $ul = $('<ul />')
           .addClass('dropdown-menu')
           .attr({ 'aria-labeledby': button_id });
         const $li_list = tags.map(function (tag) {
           const $li = $('<li />').attr({ 'id': slug_id_prefix + tag.slug });
           const $a = $('<a />')
+            .addClass('dropdown-item')
             .attr({ href: '#' })
-            .append(django_colortag_badge(tag))
+            .append(django_colortag_badge(tag).attr('data-tag-removable', 'false'))
             .on('click', click_handler_for_slug(tag.slug));
           $li.append($a);
           return $li;
@@ -139,7 +145,34 @@ const get_create_tagging_dropdown_closure = (function ($) {
         $span.append($button);
         $span.append($ul);
         menu_created_callback($span);
+
+        /**
+         * Re-add a previously removed tag back to the dropdown.
+         * If the dropdown was never inserted into the DOM (because all tags
+         * were assigned at init time), it is inserted now via
+         * menu_created_callback.
+         * @param {String} slug - The slug of the tag to re-add.
+         */
+        result.readd_tag = function (slug) {
+          const tag = all_tags.find(function (t) { return t.slug === slug; });
+          if (!tag) return;
+          const tag_elem_id = slug_id_prefix + tag.slug;
+          if ($ul.find('li#' + tag_elem_id).length > 0) return;
+          const $li = $('<li />').attr({ 'id': tag_elem_id });
+          const $a = $('<a />')
+            .addClass('dropdown-item')
+            .attr({ href: '#' })
+            .append(django_colortag_badge(tag).attr('data-tag-removable', 'false'))
+            .on('click', click_handler_for_slug(tag.slug));
+          $li.append($a);
+          $ul.append($li);
+          // If the dropdown was never added to the DOM, add it now.
+          if (!$.contains(document, $span[0])) {
+            menu_created_callback($span);
+          }
+        };
       });
+      return result;
     }
   }
 })(jQuery);
